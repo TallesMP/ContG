@@ -13,3 +13,4 @@ client.connect()
   .then(() => console.log("Conectado"))
   .catch(err => console.log("erro", err));
 
+export default client;
