@@ -1,16 +1,12 @@
 import express, { Request, Response } from 'express';
-import client from './db/connection';
+import { UserService } from './services/UserService';
 
 const app = express();
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  client.query('SELECT NOW()', (err, result) => {
-    if (err) {
-      return res.status(500).send('Errro ao consultar bd');
-    }
-    res.status(200).json({ data: result.rows });
-  });
+app.get('/registro', async (req: Request, res: Response) => {
+  const teste = await UserService.createUser("teste", "teste@gmail.com", "senha", "hash");
+  res.status(500).send(teste)
 });
 
 const PORT = process.env.PORT || 48003;
