@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/registro', async (req: Request, res: Response) => {
-  const teste = await UserService.createUser("teste", "teste@gmail.com", "senha", "hash");
+  const teste = await UserService.createUser("testebcrypt", "bcrypt@gmail.com", "senha");
   res.status(500).send(teste)
 });
 

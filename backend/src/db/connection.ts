@@ -5,7 +5,7 @@ const client = new Client({
   user: 'postgres',
   host: 'localhost',
   port: 5432,
-  database: 'controle_gastos'
+  database: 'contg'
 });
 
 

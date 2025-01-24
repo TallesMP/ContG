@@ -2,17 +2,16 @@
 import client from '../db/connection';
 
 export class UserRepository {
-  static async insertUser(name: string, email: string, hash: string, salt: string) {
+  static async insertUser(name: string, email: string, hash: string) {
     const query = `
-      INSERT INTO usuario (nome, email, senha_hash, senha_salt)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *;
+      INSERT INTO users (name, email,hash)
+      VALUES ($1, $2, $3);
     `;
 
     try {
-      const result = await client.query(query, [name, email, hash, salt]);
+      await client.query(query, [name, email, hash]);
 
-      return { result: result };
+      return { result: "Usuario criado" };
     } catch (err: any) {
       return { error: err.message };
     }

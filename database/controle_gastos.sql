@@ -1,35 +1,31 @@
--- Criação do banco de dados
-CREATE DATABASE controle_gastos;
 
--- Conectar ao banco de dados
-\c controle_gastos;
+CREATE DATABASE contg;
 
--- Tabela de usuários
-CREATE TABLE usuario (
-    id_usuario SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
+\c contg;
+
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    senha_hash VARCHAR(255) NOT NULL,
-    senha_salt VARCHAR(255) NOT NULL 
+    hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
--- Tabela de categorias
-CREATE TABLE categoria (
-    id_categoria SERIAL PRIMARY KEY,
-    id_usuario INT,
-    nome VARCHAR(100) NOT NULL,
-    CONSTRAINT unique_categoria_usuario UNIQUE (id_usuario, nome),  -- Garante que o nome da categoria é único por usuário
-    CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE
+CREATE TABLE categories (
+    category_id SERIAL PRIMARY KEY,
+    user_id INT,
+    name VARCHAR(100) NOT NULL,
+    CONSTRAINT unique_category_user UNIQUE (user_id, name),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Tabela de gastos
-CREATE TABLE gasto (
-    id_gasto SERIAL PRIMARY KEY,
-    id_usuario INT,
-    id_categoria INT DEFAULT NULL,  -- NULL será o mesmo que "Sem categoria"
-    valor DECIMAL(10, 2) NOT NULL,
-    data DATE NOT NULL, 
-    CONSTRAINT fk_usuario_gasto FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE,
-    CONSTRAINT fk_categoria FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria) ON DELETE SET NULL
+CREATE TABLE expenses (
+    expense_id SERIAL PRIMARY KEY,
+    user_id INT,
+    category_id INT DEFAULT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    date DATE NOT NULL,
+    CONSTRAINT fk_user_expense FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE SET NULL
 );
 
