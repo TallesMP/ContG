@@ -16,4 +16,13 @@ export class UserRepository {
       return { error: err.message };
     }
   }
+
+  static async getHash(email: string) {
+    const query = `
+      SELECT hash FROM users WHERE email = $1`
+    const hash = await client.query(query, [email])
+    console.log(hash.rows[0])
+    console.log(email)
+    return hash.rows[0].hash;
+  }
 }

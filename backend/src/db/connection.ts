@@ -10,7 +10,7 @@ const client = new Client({
 
 
 client.connect()
-  .then(() => console.log("Conectado"))
-  .catch(err => console.log("erro", err));
+  .then(() => console.log("DB: Conectado"))
+  .catch(err => console.log("DB: Erro", err));
 
 export default client;
