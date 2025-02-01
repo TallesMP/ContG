@@ -1,26 +1,20 @@
-import express, { Request, Response } from 'express';
-import { UserService } from './services/UserService';
+import express, { Request, Response } from "express";
+import { UserService } from "./services/UserService";
+import dotenv from "dotenv"
+import { authenticateToken } from "./middlewares/AuthMiddleware"
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-app.get('/user', async (req: Request, res: Response) => {
-  const login = UserService.compareHash(req.body);
-  res.status(500).send(login)
-});
+// Public routes
+app.post("/login", UserService.loginUser);
 
-app.post('/user', async (req: Request, res: Response) => {
-  const user = await UserService.createUser(req.body);
-  res.status(500).send(user)
-});
+app.post("/user", UserService.createUser);
 
-app.put('/user', async (req: Request, res: Response) => {
-
-})
-
-app.delete('/user', async (req: Request, res: Response) => {
-
-})
+// Private routes
+app.put("/user", async (req: Request, res: Response) => { });
+app.delete("/user", authenticateToken, UserService.removeUser);
 
 const PORT = process.env.PORT || 48003;
 app.listen(PORT, () => {
