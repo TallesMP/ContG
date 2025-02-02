@@ -51,7 +51,7 @@ export class UserService {
 
   static async removeUser(req: Request, res: Response) {
     try {
-      const result = await UserRepository.deleteUser(req.user.email)
+      const result = await UserRepository.deleteUser(req.body.email)
       res
         .status(201)
         .json({ message: "Usuario excluido com sucesso " + result })
