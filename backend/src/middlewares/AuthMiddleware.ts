@@ -1,8 +1,15 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-export const authenticateToken = (req: Request, res: Response, next: NextFunction): void => {
+export const authenticateToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  console.log(req.headers);
+
   const token = req.headers["authorization"]?.split(" ")[1];
+
   if (!token) {
     res.status(401).json({ message: "Acesso negado" });
     return;
@@ -16,4 +23,3 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     res.status(400).json({ message: "Token invalido" });
   }
 };
-

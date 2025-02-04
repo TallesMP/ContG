@@ -1,5 +1,4 @@
-
-import client from '../db/connection';
+import client from "../db/connection";
 export class UserRepository {
   static async insertUser(name: string, email: string, hash: string) {
     const query = `
@@ -11,33 +10,31 @@ export class UserRepository {
       await client.query(query, [name, email, hash]);
 
       return { result: "Usuario criado" };
-    } catch (err: any) {
-      return { error: err.message };
+    } catch (error: any) {
+      throw new Error("Email duplicado");
     }
   }
 
-  static async getHash(email: string) {
+  static async getUser(email: string) {
     const query = `
-      SELECT hash FROM users WHERE email = $1
+      SELECT hash, user_id FROM users WHERE email = $1
     `;
 
     const hash = await client.query(query, [email]);
     if (hash.rowCount == 0) {
       throw new Error("Email incorreto");
     }
-    return hash.rows[0].hash;
-
+    return hash.rows[0];
   }
 
-  static async deleteUser(email: string) {
+  static async deleteUser(id: string) {
     const query = `
-      DELETE FROM users WHERE email = $1
+      DELETE FROM users WHERE user_id = $1
     `;
     try {
-      await client.query(query, [email]);
-      return { result: "Usuario excluido" };
-    } catch (err: any) {
-      return { error: err.message };
+      await client.query(query, [id]);
+    } catch (error: any) {
+      throw new Error(`Id invalido`);
     }
   }
 }

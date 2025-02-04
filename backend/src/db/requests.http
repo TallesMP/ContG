@@ -1,0 +1,24 @@
+POST http://localhost:48003/user
+content-type: application/json
+
+{
+    "name": "talles",
+    "email": "talles@hotmail.com",
+    "password": "123"
+}
+
+
+### 
+DELETE http://localhost:48003/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.MzI.RRda-uJMfBEipQVIThVDWTh-1Yn8pW1QU98vhM8BVLU
+
+
+###
+POST http://localhost:48003/login
+content-type: application/json
+
+{
+    "email": "talles@hotmail.com",
+    "password": "123"
+}
