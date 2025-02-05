@@ -12,7 +12,7 @@ app.post("/login", UserService.loginUser);
 app.post("/user", UserService.createUser);
 
 // Private routes
-app.put("/user", async (req: Request, res: Response) => {});
+app.put("/user", authenticateToken, UserService.editeUser);
 app.delete("/user", authenticateToken, UserService.removeUser);
 
 const PORT = process.env.PORT || 48003;

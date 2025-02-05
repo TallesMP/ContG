@@ -6,8 +6,6 @@ export const authenticateToken = (
   res: Response,
   next: NextFunction
 ): void => {
-  console.log(req.headers);
-
   const token = req.headers["authorization"]?.split(" ")[1];
 
   if (!token) {

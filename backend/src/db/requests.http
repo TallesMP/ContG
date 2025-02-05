@@ -7,11 +7,20 @@ content-type: application/json
     "password": "123"
 }
 
+### 
+PUT http://localhost:48003/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.MjM.FQiGUP6OMQOD5zSJLMn_pRQq3nJSRuQmWnEgAhEIm7g
+
+{
+    "password": "12345",
+    "newPassword": "123"
+}
 
 ### 
 DELETE http://localhost:48003/user
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.MzI.RRda-uJMfBEipQVIThVDWTh-1Yn8pW1QU98vhM8BVLU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.MjI.6KqeMwyQ0g0ZVBZZf9lSPF1CxEdaqBA3JdxXswXHGyM
 
 
 ###
@@ -20,5 +29,5 @@ content-type: application/json
 
 {
     "email": "talles@hotmail.com",
-    "password": "123"
+    "password": "12003"
 }
