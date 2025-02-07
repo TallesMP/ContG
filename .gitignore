@@ -1,9 +1,8 @@
 node_modules/
 
+*.http
 
 *.log
 
 .env
-
-requests.http
 

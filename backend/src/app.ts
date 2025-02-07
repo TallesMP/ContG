@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { UserController } from "./controller/userController";
 import { UserService } from "./services/UserService";
 import dotenv from "dotenv";
 import { authenticateToken } from "./middlewares/AuthMiddleware";
@@ -8,12 +9,12 @@ const app = express();
 app.use(express.json());
 
 // Public routes
-app.post("/login", UserService.loginUser);
-app.post("/user", UserService.createUser);
+app.post("/login", UserController.loginUser);
+app.post("/user", UserController.createUser);
 
 // Private routes
-app.put("/user", authenticateToken, UserService.editeUser);
-app.delete("/user", authenticateToken, UserService.removeUser);
+app.put("/user", authenticateToken, UserController.editUser);
+app.delete("/user", authenticateToken, UserController.removerUser);
 
 const PORT = process.env.PORT || 48003;
 app.listen(PORT, () => {

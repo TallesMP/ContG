@@ -8,10 +8,8 @@ export class UserRepository {
 
     try {
       await client.query(query, [name, email, hash]);
-
-      return { result: "Usuario criado" };
     } catch (error: any) {
-      throw new Error("Email duplicado");
+      throw { status: 409, message: "Email duplicado" };
     }
   }
 
@@ -20,33 +18,34 @@ export class UserRepository {
       SELECT user_id FROM users WHERE email = $1
     `;
 
-    const id = await client.query(query, [email]);
-    if (id.rowCount == 0) {
-      throw new Error("Email incorreto");
+    const result = await client.query(query, [email]);
+    if (result.rowCount == 0) {
+      throw { status: 404, message: "Email incorreto" };
     }
-    return id.rows[0].user_id;
+    return result.rows[0].user_id;
   }
 
   static async getHash(id: string) {
     const query = `
       SELECT hash FROM users WHERE user_id = $1
     `;
-    const hash = await client.query(query, [id]);
-    if (hash.rowCount === 0) {
+    const result = await client.query(query, [id]);
+    if (result.rowCount === 0) {
       throw new Error("Hash não encontrado");
     }
-    return hash.rows[0].hash;
+    return result.rows[0].hash;
   }
 
   static async editPassword(hash: string, id: string) {
     const query = `
       UPDATE users SET hash = $1 WHERE user_id = $2
     `;
+    console.log("cavbao");
 
-    try {
-      await client.query(query, [hash, id]);
-    } catch (error: any) {
-      throw new Error("ID não encontrado");
+    const result = await client.query(query, [hash, id]);
+
+    if (result.rowCount === 0) {
+      throw { status: 404, message: "ID não encontrado" };
     }
   }
 
@@ -54,10 +53,10 @@ export class UserRepository {
     const query = `
       DELETE FROM users WHERE user_id = $1
     `;
-    try {
-      await client.query(query, [id]);
-    } catch (error: any) {
-      throw new Error(`Id invalido`);
+
+    const result = await client.query(query, [id]);
+    if (result.rowCount === 0) {
+      throw { status: 404, message: "ID inválido" };
     }
   }
 }

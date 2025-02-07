@@ -2,32 +2,31 @@ POST http://localhost:48003/user
 content-type: application/json
 
 {
-    "name": "talles",
-    "email": "talles@hotmail.com",
+    "name": "thaylan",
+    "email": "thaylan@hotmail.com",
     "password": "123"
 }
 
 ### 
 PUT http://localhost:48003/user
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.MjM.FQiGUP6OMQOD5zSJLMn_pRQq3nJSRuQmWnEgAhEIm7g
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDMsImlhdCI6MTczODg4ODEzN30.XL-hq412xtuKGaZzyjKiOhtC4wpGgMobxEyKOclr0Ms
 
 {
-    "password": "12345",
-    "newPassword": "123"
+    "password": "123",
+    "newPassword": "12345"
 }
 
 ### 
 DELETE http://localhost:48003/user
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.MjI.6KqeMwyQ0g0ZVBZZf9lSPF1CxEdaqBA3JdxXswXHGyM
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDMsImlhdCI6MTczODg4ODEzN30.XL-hq412xtuKGaZzyjKiOhtC4wpGgMobxEyKOclr0Ms
 
 ###
 POST http://localhost:48003/login
 content-type: application/json
 
 {
-    "email": "talles@hotmail.com",
-    "password": "12003"
+    "email": "thaylan@hotmail.com",
+    "password": "12345"
 }

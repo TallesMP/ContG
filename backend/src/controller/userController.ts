@@ -1,0 +1,60 @@
+import { Request, Response } from "express";
+import { UserService } from "../services/UserService";
+
+export class UserController {
+  static async createUser(req: Request, res: Response) {
+    try {
+      const { name, email, password } = req.body;
+      await UserService.createUser(name, email, password);
+      res.status(201).json({ message: "Usuário criado com sucesso" });
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ error: error.message || "Erro inesperado" });
+    }
+  }
+
+  static async loginUser(req: Request, res: Response) {
+    try {
+      const { email, password } = req.body;
+      const token = await UserService.loginUser(email, password);
+      res.status(200).json({ message: "Login feito com sucesso", token });
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ error: error.message || "Erro inesperado" });
+    }
+  }
+
+  static async editUser(req: Request, res: Response) {
+    try {
+      const { password, newPassword } = req.body;
+      const id = res.locals.UserToken.id;
+      console.log(id);
+
+      if (!password || !newPassword) {
+        res.status(400).json({ error: "Senha antiga e nova são obrigatórias" });
+        return;
+      }
+
+      await UserService.editUser(password, newPassword, id);
+      res.status(200).json({ message: "Senha alterada com sucesso" });
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ error: error.message || "Erro inesperado" });
+    }
+  }
+
+  static async removerUser(req: Request, res: Response) {
+    try {
+      const id = res.locals.UserToken.id;
+      await UserService.removeUser(id);
+      res.status(200).json({ message: "Usuário excluído com sucesso" });
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ error: error.message || "Erro inesperado" });
+    }
+  }
+}
