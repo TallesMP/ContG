@@ -14,7 +14,7 @@ app.post("/user", UserController.createUser);
 
 // Private routes
 app.put("/user", authenticateToken, UserController.editUser);
-app.delete("/user", authenticateToken, UserController.removerUser);
+app.delete("/user", authenticateToken, UserController.removeUser);
 
 const PORT = process.env.PORT || 48003;
 app.listen(PORT, () => {

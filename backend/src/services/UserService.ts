@@ -10,7 +10,7 @@ export class UserService {
       throw { status: 400, message: "Email inválido" };
     }
 
-    const hash = await bcrypt.hash(password, 12);
+    const hash = await bcrypt.hash(password, 14);
     await UserRepository.insertUser(name, email, hash);
   }
 
@@ -23,7 +23,9 @@ export class UserService {
       throw { status: 401, message: "Senha inválida" };
     }
 
-    return jwt.sign({ id }, process.env.JWT_KEY!);
+    // https://portswigger.net/web-security/jwt/algorithm-confusion
+    // https://medium.com/@chanpreetkaur2005/jwt-algorithm-confusion-attack-71278e2dce0e
+    return jwt.sign({ id }, process.env.JWT_KEY!, { algorithm: 'HS256' });
   }
 
   static async editUser(password: string, newPassword: string, id: string) {
@@ -34,7 +36,7 @@ export class UserService {
       throw { status: 401, message: "Senha antiga incorreta" };
     }
 
-    const newHash = await bcrypt.hash(newPassword, 12);
+    const newHash = await bcrypt.hash(newPassword, 14);
     await UserRepository.editPassword(newHash, id);
   }
 

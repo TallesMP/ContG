@@ -46,7 +46,7 @@ export class UserController {
     }
   }
 
-  static async removerUser(req: Request, res: Response) {
+  static async removeUser(req: Request, res: Response) {
     try {
       const id = res.locals.UserToken.id;
       await UserService.removeUser(id);
