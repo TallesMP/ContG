@@ -1,14 +1,13 @@
 import { UserRepository } from "../repositories/UserRepository";
-import { VerifyEmail } from "../aux/auxiliaries";
+import { EmailService } from "./EmailService";
 import bcrypt from "bcrypt";
-import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 export class UserService {
   static async createUser(name: string, email: string, password: string) {
-    if (!(await VerifyEmail(email))) {
-      throw { status: 400, message: "Email inválido" };
-    }
+    //   if (!(await EmailService.verifyEmail(email))) {
+    //     throw { status: 400, message: "Email inválido" };
+    //    }
 
     const hash = await bcrypt.hash(password, 14);
     await UserRepository.insertUser(name, email, hash);
@@ -17,9 +16,9 @@ export class UserService {
   static async loginUser(email: string, password: string) {
     const id = await UserRepository.getId(email);
     const hash = await UserRepository.getHash(id);
-    const result = await bcrypt.compare(password, hash);
+    const equal = await bcrypt.compare(password, hash);
 
-    if (!result) {
+    if (!equal) {
       throw { status: 401, message: "Senha inválida" };
     }
 

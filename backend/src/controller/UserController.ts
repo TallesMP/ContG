@@ -27,23 +27,7 @@ export class UserController {
   }
 
   static async editUser(req: Request, res: Response) {
-    try {
-      const { password, newPassword } = req.body;
-      const id = res.locals.UserToken.id;
-      console.log(id);
 
-      if (!password || !newPassword) {
-        res.status(400).json({ error: "Senha antiga e nova são obrigatórias" });
-        return;
-      }
-
-      await UserService.editUser(password, newPassword, id);
-      res.status(200).json({ message: "Senha alterada com sucesso" });
-    } catch (error: any) {
-      res
-        .status(error.status || 500)
-        .json({ error: error.message || "Erro inesperado" });
-    }
   }
 
   static async removeUser(req: Request, res: Response) {

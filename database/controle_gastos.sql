@@ -1,4 +1,3 @@
-
 CREATE DATABASE contg;
 
 \c contg;
@@ -29,3 +28,9 @@ CREATE TABLE expenses (
     CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE SET NULL
 );
 
+CREATE TABLE awaiting_verification (
+    verification_id SERIAL PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    verification_code VARCHAR(10) NOT NULL,
+    expires_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP + INTERVAL '24 hours' NOT NULL
+);
