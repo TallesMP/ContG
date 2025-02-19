@@ -2,7 +2,7 @@ import express from "express";
 import { UserController } from "./controller/UserController";
 import dotenv from "dotenv";
 import { authenticateToken } from "./middlewares/AuthMiddleware";
-import { EmailService } from "./services/EmailService";
+import { EmailController } from "./controller/EmailController";
 dotenv.config();
 
 const app = express();
@@ -11,7 +11,7 @@ app.use(express.json());
 // Public routes
 app.post("/login", UserController.loginUser);
 app.post("/user", UserController.createUser);
-//app.post("/email", EmailService.verifyEmail)
+app.post("/email", EmailController.verifyEmail)
 
 // Private routes
 app.put("/user", authenticateToken, UserController.editUser);

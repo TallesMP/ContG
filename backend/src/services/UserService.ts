@@ -1,13 +1,13 @@
+import { EmailRepository } from "../repositories/EmailRepository";
 import { UserRepository } from "../repositories/UserRepository";
-import { EmailService } from "./EmailService";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export class UserService {
-  static async createUser(name: string, email: string, password: string) {
-    //   if (!(await EmailService.verifyEmail(email))) {
-    //     throw { status: 400, message: "Email inválido" };
-    //    }
+  static async createUser(name: string, email: string, password: string, code: string) {
+    if (!(await EmailRepository.compareVerificationCode(email, code))) {
+      throw { status: 400, message: "Email inválido" };
+    }
 
     const hash = await bcrypt.hash(password, 14);
     await UserRepository.insertUser(name, email, hash);

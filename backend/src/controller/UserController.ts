@@ -4,8 +4,8 @@ import { UserService } from "../services/UserService";
 export class UserController {
   static async createUser(req: Request, res: Response) {
     try {
-      const { name, email, password } = req.body;
-      await UserService.createUser(name, email, password);
+      const { name, email, password, code } = req.body;
+      await UserService.createUser(name, email, password, code);
       res.status(201).json({ message: "Usuário criado com sucesso" });
     } catch (error: any) {
       res
@@ -41,4 +41,6 @@ export class UserController {
         .json({ error: error.message || "Erro inesperado" });
     }
   }
+
+
 }
