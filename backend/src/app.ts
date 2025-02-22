@@ -3,6 +3,8 @@ import { UserController } from "./controller/UserController";
 import dotenv from "dotenv";
 import { authenticateToken } from "./middlewares/AuthMiddleware";
 import { EmailController } from "./controller/EmailController";
+import "./db/scheduler"
+
 dotenv.config();
 
 const app = express();

@@ -20,12 +20,14 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "node-cron": "^3.0.3",
     "nodemailer": "^6.10.0",
     "pg": "^8.13.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   },
   "devDependencies": {
+    "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^6.4.17"
   }
 }

@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 export class UserService {
   static async createUser(name: string, email: string, password: string, code: string) {
     if (!(await EmailRepository.compareVerificationCode(email, code))) {
-      throw { status: 400, message: "Email inválido" };
+      throw { status: 400, message: "Codigo inválido ou expirado" };
     }
 
     const hash = await bcrypt.hash(password, 14);
