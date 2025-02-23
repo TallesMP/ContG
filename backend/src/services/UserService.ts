@@ -9,6 +9,7 @@ export class UserService {
       throw { status: 400, message: "Codigo inválido ou expirado" };
     }
 
+    await EmailRepository.deleteUnverificatedUser(email)
     const hash = await bcrypt.hash(password, 14);
     await UserRepository.insertUser(name, email, hash);
   }
