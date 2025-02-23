@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { authenticateToken } from "./middlewares/AuthMiddleware";
 import { EmailController } from "./controller/EmailController";
 import "./db/scheduler"
+import { CategoryController } from "./controller/CategoryController";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.post("/email", EmailController.verifyEmail)
 // Private routes
 app.put("/user", authenticateToken, UserController.editUser);
 app.delete("/user", authenticateToken, UserController.removeUser);
+app.post("/category", authenticateToken, CategoryController.createCategory);
 
 const PORT = process.env.PORT || 48003;
 app.listen(PORT, () => {
