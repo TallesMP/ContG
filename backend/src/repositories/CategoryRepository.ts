@@ -23,6 +23,17 @@ export class CategoryRepository {
       throw { status: 409, message: "Não foi possivel criar categoria" };
     }
   }
+  static async deleteCategory(user_id: number, name: string) {
+    const query = `
+    DELETE FROM categories 
+    WHERE user_id = $1 AND name = $2`
+    try {
+      await client.query(query, [user_id, name])
+      console.log("Categoria " + name + " apagada")
+    } catch (error: any) {
+      throw { status: 409, message: "Não foi possivel excluir categoria" };
+    }
+  }
 }
 
 

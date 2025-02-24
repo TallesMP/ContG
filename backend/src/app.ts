@@ -20,6 +20,7 @@ app.post("/email", EmailController.verifyEmail)
 app.put("/user", authenticateToken, UserController.editUser);
 app.delete("/user", authenticateToken, UserController.removeUser);
 app.post("/category", authenticateToken, CategoryController.createCategory);
+app.delete("/category", authenticateToken, CategoryController.removeCategory)
 
 const PORT = process.env.PORT || 48003;
 app.listen(PORT, () => {
