@@ -14,7 +14,7 @@ export class CategoryController {
   }
   static async removeCategory(req: Request, res: Response) {
     try {
-      const [name] = req.body;
+      const { name } = req.body;
       await CategoryService.removeCategory(res.locals.UserToken.id, name)
       res.status(201).json({ message: "Categoria excluida" })
     }

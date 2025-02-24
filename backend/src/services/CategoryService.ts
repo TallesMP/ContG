@@ -22,6 +22,7 @@ export class CategoryService {
       await CategoryRepository.deleteCategory(user_id, name)
       return true
     } catch (error: any) {
+      console.log("Categorty Service: " + error.message)
       throw { status: 409, message: "Não foi possivel excluir categoria" }
     }
   }

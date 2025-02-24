@@ -31,6 +31,7 @@ export class CategoryRepository {
       await client.query(query, [user_id, name])
       console.log("Categoria " + name + " apagada")
     } catch (error: any) {
+      console.log(error.message)
       throw { status: 409, message: "Não foi possivel excluir categoria" };
     }
   }
