@@ -13,6 +13,18 @@ export class UserRepository {
     }
   }
 
+  static async getUserByEmail(email: string) {
+    const query = `
+      SELECT * FROM users WHERE email = $1
+    `;
+
+    const result = await client.query(query, [email]);
+    if (result.rowCount == 0) {
+      throw { status: 404, message: "Email incorreto" };
+    }
+    return result.rows[0];
+  }
+
   static async getId(email: string) {
     const query = `
       SELECT user_id FROM users WHERE email = $1
@@ -36,13 +48,12 @@ export class UserRepository {
     return result.rows[0].hash;
   }
 
-  static async editPassword(hash: string, id: string) {
+  static async editPassword(email: string, hash: string) {
     const query = `
-      UPDATE users SET hash = $1 WHERE user_id = $2
+      UPDATE users SET hash = $1 WHERE email = $2
     `;
-    console.log("cavbao");
 
-    const result = await client.query(query, [hash, id]);
+    const result = await client.query(query, [hash, email]);
 
     if (result.rowCount === 0) {
       throw { status: 404, message: "ID não encontrado" };

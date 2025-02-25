@@ -5,7 +5,7 @@ export class EmailController {
   static async verifyEmail(req: Request, res: Response) {
     try {
       const { email } = req.body;
-      await EmailService.sendVerificationEmail(email);
+      await EmailService.sendVerificationCode(email);
       res.status(201).json({ message: "Código enviado" });
     } catch (error: any) {
       res
@@ -13,5 +13,4 @@ export class EmailController {
         .json({ error: error.message || "Erro inesperado" });
     }
   }
-
 }
