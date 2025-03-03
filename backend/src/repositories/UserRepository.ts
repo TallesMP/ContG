@@ -13,18 +13,6 @@ export class UserRepository {
     }
   }
 
-  static async getUserByEmail(email: string) {
-    const query = `
-      SELECT * FROM users WHERE email = $1
-    `;
-
-    const result = await client.query(query, [email]);
-    if (result.rowCount == 0) {
-      throw { status: 404, message: "Email incorreto" };
-    }
-    return result.rows[0];
-  }
-
   static async getId(email: string) {
     const query = `
       SELECT user_id FROM users WHERE email = $1
@@ -32,7 +20,7 @@ export class UserRepository {
 
     const result = await client.query(query, [email]);
     if (result.rowCount == 0) {
-      throw { status: 404, message: "Email incorreto" };
+      throw { status: 404, message: "Usuario não encontradoo" };
     }
     return result.rows[0].user_id;
   }

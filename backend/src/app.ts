@@ -5,7 +5,6 @@ import { authenticateToken } from "./middlewares/AuthMiddleware";
 import { EmailController } from "./controller/EmailController";
 import "./db/scheduler";
 import { CategoryController } from "./controller/CategoryController";
-import { PasswordController } from "./controller/PasswordController";
 
 dotenv.config();
 
@@ -16,16 +15,11 @@ app.use(express.json());
 app.post("/login", UserController.loginUser);
 app.post("/user", UserController.createUser);
 app.post("/email", EmailController.verifyEmail);
-app.post("/forgot_password", PasswordController.sendEmailForgotPassword);
+app.post("/password", UserController.requestPasswordReset);
 
 // Private routes
-app.put("/user", authenticateToken, UserController.editUser);
 app.delete("/user", authenticateToken, UserController.removeUser);
-app.put(
-  "/forgot_password",
-  authenticateToken,
-  PasswordController.resetPassword
-);
+app.put("/password", authenticateToken, UserController.resetPassword);
 app.post("/category", authenticateToken, CategoryController.createCategory);
 app.delete("/category", authenticateToken, CategoryController.removeCategory);
 

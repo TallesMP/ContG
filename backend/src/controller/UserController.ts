@@ -26,10 +26,6 @@ export class UserController {
     }
   }
 
-  static async editUser(req: Request, res: Response) {
-
-  }
-
   static async removeUser(req: Request, res: Response) {
     try {
       const id = res.locals.UserToken.id;
@@ -39,6 +35,31 @@ export class UserController {
       res
         .status(error.status || 500)
         .json({ error: error.message || "Erro inesperado" });
+    }
+  }
+
+  static async requestPasswordReset(req: Request, res: Response) {
+    try {
+      const { email } = req.body;
+      await UserService.requestPasswordReset(email);
+      res.status(200).json({ message: "Email enviado com sucesso" });
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ error: error.message || "Erro ao enviar email" });
+    }
+  }
+  static async resetPassword(req: Request, res: Response) {
+    try {
+      const { newPassword } = req.body;
+      const email = res.locals.UserToken.email;
+
+      await UserService.resetPassword(email, newPassword);
+      res.status(200).json({ message: "Senha trocada com sucesso" });
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json(error.message || "Erro ao trocar senha");
     }
   }
 

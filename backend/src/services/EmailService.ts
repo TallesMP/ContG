@@ -9,10 +9,10 @@ export class EmailService {
     const subject = "Código de verificação.";
     const value = await EmailRepository.insertCode(email);
 
-    this.sendEmai(email, text, subject, value);
+    this.sendEmail(email, text, subject, value);
   }
 
-  static async sendEmai(
+  static async sendEmail(
     email: string,
     text: string,
     subject: string,
@@ -54,7 +54,6 @@ export class EmailService {
     } catch (error) {
       throw new Error("Domínio de email inválido.");
     }
-
     return true;
   }
 }

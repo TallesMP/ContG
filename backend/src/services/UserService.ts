@@ -1,5 +1,6 @@
 import { EmailRepository } from "../repositories/EmailRepository";
 import { UserRepository } from "../repositories/UserRepository";
+import { EmailService } from "./EmailService";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -28,19 +29,28 @@ export class UserService {
     return jwt.sign({ id }, process.env.JWT_KEY!, { algorithm: 'HS256' });
   }
 
-  static async editUser(password: string, newPassword: string, id: string) {
-    const hash = await UserRepository.getHash(id);
-
-    const compared = await bcrypt.compare(password, hash);
-    if (!compared) {
-      throw { status: 401, message: "Senha antiga incorreta" };
-    }
-
-    const newHash = await bcrypt.hash(newPassword, 14);
-    await UserRepository.editPassword(newHash, id);
-  }
-
   static async removeUser(id: string) {
     await UserRepository.deleteUser(id);
+  }
+
+  static async resetPassword(email: string, newPassword: string) {
+    const hash = await bcrypt.hash(newPassword, 14);
+    await UserRepository.editPassword(email, hash);
+  }
+
+  static async requestPasswordReset(email: string) {
+    await UserRepository.getId(email);
+
+    const token = jwt.sign({ email }, process.env.JWT_KEY!, {
+      expiresIn: "5m",
+      algorithm: "HS256",
+    });
+
+    await EmailService.sendEmail(
+      email,
+      "Segue link para troca de senha: ",
+      "Troca de senha.",
+      `http://localhost:48003/password?token=${token}`
+    );
   }
 }
