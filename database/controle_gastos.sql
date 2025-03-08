@@ -23,6 +23,7 @@ CREATE TABLE expenses (
     expense_id SERIAL PRIMARY KEY,
     user_id INT,
     category_id INT DEFAULT NULL,
+    name VARCHAR(100) NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
     date DATE NOT NULL,
     CONSTRAINT fk_user_expense FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,

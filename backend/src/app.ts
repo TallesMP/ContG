@@ -5,6 +5,7 @@ import { authenticateToken } from "./middlewares/AuthMiddleware";
 import { EmailController } from "./controller/EmailController";
 import "./db/scheduler";
 import { CategoryController } from "./controller/CategoryController";
+import { ExpenseController } from "./controller/ExpenseController";
 
 dotenv.config();
 
@@ -25,6 +26,9 @@ app.get("/category", authenticateToken, CategoryController.getCategory);
 app.post("/category", authenticateToken, CategoryController.createCategory);
 app.delete("/category", authenticateToken, CategoryController.removeCategory);
 app.put("/category", authenticateToken, CategoryController.editCategory);
+
+app.post("/expenses", authenticateToken, ExpenseController.createExpense);
+app.delete("/expenses", authenticateToken, ExpenseController.removeExpense)
 
 const PORT = process.env.PORT || 48003;
 app.listen(PORT, () => {
