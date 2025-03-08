@@ -14,6 +14,16 @@ export class CategoryService {
     }
   }
 
+  static async getCategory(user_id: number) {
+    try {
+      await CategoryRepository.getCategory(user_id)
+      return true
+    } catch (error: any) {
+      throw { status: 409, message: "Categorias não encontradas" };
+    }
+
+  }
+
   static async removeCategory(user_id: number, name: string) {
     try {
       if (!(await CategoryRepository.findCategory(user_id, name))) {

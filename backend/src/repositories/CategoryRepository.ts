@@ -1,5 +1,15 @@
 import client from "../db/connection";
 export class CategoryRepository {
+  static async getCategory(user_id: number) {
+    const query = `
+    SELECT * FROM categories
+    WHERE user_id = $1`
+    try {
+      return await client.query(query, [user_id])
+    } catch (error: any) {
+      throw { status: 409, message: "Não foi possível buscar categoria" }
+    }
+  }
   static async findCategory(user_id: number, name: string) {
     const query = `
     SELECT * FROM categories
@@ -31,7 +41,7 @@ export class CategoryRepository {
       await client.query(query, [user_id, name])
       console.log("Categoria " + name + " apagada")
     } catch (error: any) {
-      console.log(error.message)
+      console.log("Erro no Repository: " + error.message)
       throw { status: 409, message: "Não foi possivel excluir categoria" };
     }
   }
