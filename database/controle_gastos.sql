@@ -14,6 +14,7 @@ CREATE TABLE categories (
     category_id SERIAL PRIMARY KEY,
     user_id INT,
     name VARCHAR(100) NOT NULL,
+    total_value DECIMAL(10,2) DEFAULT 0,
     CONSTRAINT unique_category_user UNIQUE (user_id, name),
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
