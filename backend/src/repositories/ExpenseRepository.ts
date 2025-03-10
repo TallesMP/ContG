@@ -29,7 +29,6 @@ export class ExpenseRepository {
       WHERE user_id = $1 AND name = $2`
     try {
       await client.query(query, [user_id, name, new_name, amount, category_id])
-      console.log(user_id, name, new_name, amount, category_id)
     } catch (error: any) {
       throw { status: 409, message: "Não foi possível alterar o gasto" };
     }
