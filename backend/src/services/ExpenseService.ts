@@ -6,6 +6,7 @@ export class ExpenseService {
     if (amount <= 0) {
       throw { status: 400, message: "Valor do gasto deve ser maior que zero" }
     }
+    console.log("service")
     await CategoryRepository.getCategory(category_id)
 
     await ExpenseRepository.insertExpense(user_id, category_id, name, amount)
@@ -22,6 +23,6 @@ export class ExpenseService {
     }
 
     await CategoryRepository.getCategory(category_id)
-
+    await ExpenseRepository.editExpense(user_id, name, new_name, amount, category_id)
   }
 }

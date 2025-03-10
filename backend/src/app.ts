@@ -28,7 +28,8 @@ app.delete("/category", authenticateToken, CategoryController.removeCategory);
 app.put("/category", authenticateToken, CategoryController.editCategory);
 
 app.post("/expenses", authenticateToken, ExpenseController.createExpense);
-app.delete("/expenses", authenticateToken, ExpenseController.removeExpense)
+app.delete("/expenses", authenticateToken, ExpenseController.removeExpense);
+app.put("/expenses", authenticateToken, ExpenseController.editExpense);
 
 const PORT = process.env.PORT || 48003;
 app.listen(PORT, () => {

@@ -28,6 +28,7 @@ export class ExpenseController {
     try {
       const { name, new_name, amount, category_id } = req.body;
       await ExpenseService.editExpense(res.locals.UserToken.id, name, new_name, amount, category_id)
+      res.status(201).json({ message: "Gasto editado" })
     } catch (error: any) {
       res
         .status(error.status || 500)
