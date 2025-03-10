@@ -24,4 +24,14 @@ export class ExpenseController {
         .json({ error: error.message || "Erro inesperado" })
     }
   }
+  static async editExpense(req: Request, res: Response) {
+    try {
+      const { name, new_name, amount, category_id } = req.body;
+      await ExpenseService.editExpense(res.locals.UserToken.id, name, new_name, amount, category_id)
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ error: error.message || "Erro inesperado" })
+    }
+  }
 }
