@@ -35,4 +35,15 @@ export class ExpenseController {
         .json({ error: error.message || "Erro inesperado" })
     }
   }
+  static async getExpense(req: Request, res: Response) {
+    try {
+      const { category_id } = req.body;
+      const expenses = await ExpenseService.getExpenses(res.locals.UserToken.id, category_id)
+      res.status(201).json({ message: "Gasto retornado", expenses })
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ error: error.message || "Erro inesperado" })
+    }
+  }
 }

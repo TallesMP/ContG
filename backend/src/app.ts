@@ -30,6 +30,7 @@ app.put("/category", authenticateToken, CategoryController.editCategory);
 app.post("/expenses", authenticateToken, ExpenseController.createExpense);
 app.delete("/expenses", authenticateToken, ExpenseController.removeExpense);
 app.put("/expenses", authenticateToken, ExpenseController.editExpense);
+app.get("/expenses", authenticateToken, ExpenseController.getExpense)
 
 const PORT = process.env.PORT || 48003;
 app.listen(PORT, () => {

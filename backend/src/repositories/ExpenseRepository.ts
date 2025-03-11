@@ -33,4 +33,15 @@ export class ExpenseRepository {
       throw { status: 409, message: "Não foi possível alterar o gasto" };
     }
   }
+  static async getExpenses(user_id: number, category_id: number) {
+    const query = `
+      SELECT expense_id, name, amount, date FROM expenses
+      WHERE user_id = $1 AND category_id = $2`
+    try {
+      const expenses_list = await client.query(query, [user_id, category_id]);
+      return expenses_list.rows
+    } catch (error: any) {
+      throw { status: 409, message: "Não foi possível ler os gastos dessa categoria" };
+    }
+  }
 }
