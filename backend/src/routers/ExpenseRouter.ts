@@ -5,6 +5,7 @@ import { handleValidationErrors } from "../middlewares/HandleValidationErros";
 import {
   validationCreateExpense,
   validationEditExpense,
+  validationGetCategory,
   validationRemoveExpense,
 } from "../middlewares/ValidationsMiddleware";
 
@@ -16,6 +17,14 @@ router.post(
   handleValidationErrors,
   authenticateToken,
   ExpenseController.createExpense
+);
+
+router.get(
+  "/",
+  validationGetCategory,
+  handleValidationErrors,
+  authenticateToken,
+  ExpenseController.getExpense
 );
 
 router.delete(
