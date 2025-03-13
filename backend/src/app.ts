@@ -1,7 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-import router from "./routers/Router";
+
 import "./db/scheduler";
+import router from "./routers/Router";
 
 dotenv.config();
 

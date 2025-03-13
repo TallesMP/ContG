@@ -7,7 +7,7 @@ export class CategoryController {
         res.locals.UserToken.id
       );
 
-      res.status(201).json({ message: "Categorias retornadas", categories });
+      res.status(200).json({ message: "Categorias retornadas", categories });
     } catch (error: any) {
       res
 
@@ -21,7 +21,7 @@ export class CategoryController {
       const { category_id } = req.body;
       const categories = await CategoryService.getCategory(category_id);
 
-      res.status(201).json({ message: "Categoria retornada", categories });
+      res.status(200).json({ message: "Categoria retornada", categories });
     } catch (error: any) {
       res
 
@@ -35,7 +35,7 @@ export class CategoryController {
       const { name } = req.body;
 
       await CategoryService.createCategory(res.locals.UserToken.id, name);
-      res.status(201).json({ message: "Categoria criada" });
+      res.status(200).json({ message: "Categoria criada" });
     } catch (error: any) {
       res
 
@@ -48,7 +48,7 @@ export class CategoryController {
     try {
       const { name } = req.body;
       await CategoryService.removeCategory(res.locals.UserToken.id, name);
-      res.status(201).json({ message: "Categoria excluida" });
+      res.status(200).json({ message: "Categoria excluida" });
     } catch (error: any) {
       res
         .status(error.status || 500)
@@ -64,10 +64,10 @@ export class CategoryController {
         name,
         newName
       );
-      res.status(201).json({ message: "Categoria editada" });
+      res.status(200).json({ message: "Categoria editada" });
     } catch (error: any) {
       res
-        .status(error.static || 500)
+        .status(error.status || 500)
         .json({ error: error.message || "Erro inesperado" });
     }
   }

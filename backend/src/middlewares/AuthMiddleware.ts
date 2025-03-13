@@ -14,10 +14,12 @@ export const authenticateToken = (
   }
 
   try {
-    const verified = jwt.verify(token, process.env.JWT_KEY!, { algorithms: ['HS256'] });
+    const verified = jwt.verify(token, process.env.JWT_KEY!, {
+      algorithms: ["HS256"],
+    });
     res.locals.UserToken = verified;
     next();
   } catch (error) {
-    res.status(400).json({ message: "Token invalido" });
+    res.status(401).json({ message: "Token invalido" });
   }
 };
