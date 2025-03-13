@@ -1,4 +1,3 @@
-import { NextFunction } from "express";
 import { body } from "express-validator";
 
 const nameValidation = (field = "name") => [
