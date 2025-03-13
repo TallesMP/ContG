@@ -51,10 +51,10 @@ export class UserController {
   }
   static async resetPassword(req: Request, res: Response) {
     try {
-      const { newPassword } = req.body;
+      const { password } = req.body;
       const email = res.locals.UserToken.email;
 
-      await UserService.resetPassword(email, newPassword);
+      await UserService.resetPassword(email, password);
       res.status(200).json({ message: "Senha trocada com sucesso" });
     } catch (error: any) {
       res
@@ -62,6 +62,4 @@ export class UserController {
         .json(error.message || "Erro ao trocar senha");
     }
   }
-
-
 }
