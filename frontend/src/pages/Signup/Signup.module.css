@@ -1,0 +1,111 @@
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 10px;
+  position: relative;
+  top: -10px;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin: 0;
+  font-family: var(--font-family);
+}
+
+.subtitle {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: var(--font-family);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+
+.codeContainer {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.codeButton {
+  padding: 15px;
+  font-size: 0.9rem;
+  color: #fff;
+  background-color: var(--primary-color);
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  height: 62px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+}
+
+.button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background-color: var(--secondary-color);
+}
+
+.codeButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.navigateButton {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navigateButton:hover {
+  color: #007bff;
+}

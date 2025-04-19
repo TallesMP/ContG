@@ -1,0 +1,39 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0fdf4;
+}
+
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  top: -40px;
+}
+
+.title {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin: 0;
+  font-family: var(--font-family);
+}
+
+.subtitle {
+  color: rgba(0, 0, 0, 0.3);
+  font-family: var(--font-family);
+}
+
+
+.input.error {
+  border-color: red;
+}
+
+.input.success {
+  border-color: green;
+}

@@ -36,3 +36,22 @@ CREATE TABLE awaiting_verification (
     verification_code VARCHAR(10) NOT NULL,
     expires_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP + INTERVAL '24 hours' NOT NULL
 );
+
+CREATE OR REPLACE FUNCTION update_total_value()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.category_id IS NOT NULL THEN
+        UPDATE categories
+        SET total_value = total_value + NEW.amount
+        WHERE category_id = NEW.category_id;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_update_total_value
+AFTER INSERT ON expenses
+FOR EACH ROW
+EXECUTE FUNCTION update_total_value();
+

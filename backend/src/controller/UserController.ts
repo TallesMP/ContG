@@ -18,7 +18,14 @@ export class UserController {
     try {
       const { email, password } = req.body;
       const token = await UserService.loginUser(email, password);
-      res.status(200).json({ message: "Login feito com sucesso", token });
+      res.status(200)
+        .cookie('token', token, {
+          httpOnly: true,
+          secure: false, //LEMBRAR DE ALTERAR PARA TRUE DEPOIS DE CONFIGURAR HTTPS
+          sameSite: 'strict'
+        })
+        .json({ message: "Login feito com sucesso" })
+
     } catch (error: any) {
       res
         .status(error.status || 500)

@@ -3,12 +3,13 @@ export class EmailRepository {
   static async insertCode(email: string): Promise<string> {
     const query = `
       INSERT INTO awaiting_verification (email, verification_code)
-      VALUES ($1, $2);
+      VALUES ($1, $2)
+      ON CONFLICT (email) DO UPDATE SET verification_code = $2;
     `;
     const code = Math.random().toFixed(6).split(".")[1]
-    console.log("Codigo " + code + " Gerado para o email " + email)
 
     await client.query(query, [email, code]);
+    console.log("Codigo " + code + " Gerado para o email " + email)
     return code
   }
   static async compareVerificationCode(email: string, code: string) {
