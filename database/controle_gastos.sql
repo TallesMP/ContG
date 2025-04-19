@@ -25,7 +25,7 @@ CREATE TABLE expenses (
     category_id INT DEFAULT NULL,
     name VARCHAR(100) NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
-    date DATE NOT NULL,
+    date DATE DEFAULT CURRENT_DATE NOT NULL,
     CONSTRAINT fk_user_expense FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE SET NULL
 );
