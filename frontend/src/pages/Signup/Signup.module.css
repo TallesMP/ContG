@@ -1,10 +1,21 @@
 .body {
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #f4f4f4;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+
 }
 
 .header {
@@ -79,4 +90,22 @@
 .button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.navigateButton {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navigateButton:hover {
+  color: #007bff;
 }

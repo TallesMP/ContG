@@ -6,11 +6,13 @@ import { EmailController } from "./controller/EmailController";
 import "./db/scheduler";
 import { CategoryController } from "./controller/CategoryController";
 import { ExpenseController } from "./controller/ExpenseController";
+import cookieParser from "cookie-parser"
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser())
 
 // Public routes
 app.post("/login", UserController.loginUser);

@@ -6,7 +6,7 @@ export const authenticateToken = (
   res: Response,
   next: NextFunction
 ): void => {
-  const token = req.headers["authorization"]?.split(" ")[1];
+  const token = req.cookies?.token;
 
   if (!token) {
     res.status(401).json({ message: "Acesso negado" });
@@ -18,6 +18,7 @@ export const authenticateToken = (
     res.locals.UserToken = verified;
     next();
   } catch (error) {
-    res.status(400).json({ message: "Token invalido" });
+    res.status(400).json({ message: "Token inválido" });
   }
 };
+

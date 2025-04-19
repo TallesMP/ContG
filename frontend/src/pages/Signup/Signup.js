@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaEnvelope, FaLock, FaUser, FaKey } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaUser, FaKey, FaArrowLeft } from 'react-icons/fa';
 import CustomInput from '../../components/CustomInput';
 import Card from '../../components/Card';
-import api from '../../services/api'; // Importa o cliente Axios
+import api from '../../services/api';
 import styles from './Signup.module.css';
 
 function Signup() {
@@ -24,7 +23,8 @@ function Signup() {
       alert(response.data.message || 'Código enviado com sucesso!');
     } catch (error) {
       console.error(error);
-      alert('Erro ao enviar o código.');
+      const errorMessage = error.response?.data?.error || 'Ocorreu um erro inesperado. Tente novamente.';
+      alert(errorMessage);
     }
   };
 
@@ -47,6 +47,15 @@ function Signup() {
 
   return (
     <div className={styles.body}>
+      {/* Botão no canto superior esquerdo */}
+      <button
+        type="button"
+        className={styles.navigateButton} // Classe para posicionamento no canto esquerdo
+        onClick={() => navigate('/login')}
+      >
+        <FaArrowLeft /> Login
+      </button>
+
       <Card>
         <header className={styles.header}>
           <h1 className={styles.title}>Criar Conta</h1>

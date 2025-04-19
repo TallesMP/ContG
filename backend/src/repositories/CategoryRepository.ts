@@ -2,7 +2,7 @@ import client from "../db/connection";
 export class CategoryRepository {
   static async getCategories(user_id: number) {
     const query = `
-    SELECT category_id, name  FROM categories
+    SELECT category_id, name, total_value FROM categories
     WHERE user_id = $1`;
     try {
       return (await client.query(query, [user_id])).rows;
