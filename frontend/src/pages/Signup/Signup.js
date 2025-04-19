@@ -23,7 +23,7 @@ function Signup() {
       alert(response.data.message || 'Código enviado com sucesso!');
     } catch (error) {
       console.error(error);
-      const errorMessage = error.response?.data?.error || 'Ocorreu um erro inesperado. Tente novamente.';
+      const errorMessage = error.response?.data?.errors?.[0] || 'Ocorreu um erro inesperado. Tente novamente.';
       alert(errorMessage);
     }
   };
@@ -41,7 +41,8 @@ function Signup() {
       navigate('/login');
     } catch (error) {
       console.error(error);
-      alert('Erro ao criar conta. Tente novamente.');
+
+      alert(error.response?.data?.errors?.[0] || 'Código invalido ou já existe uma conta com este email');
     }
   };
 

@@ -17,12 +17,12 @@ function LoginForm() {
 
     setLoading(true);
     try {
-      const response = await api.post('/login', { email, password });
+      const response = await api.post('/user/login', { email, password });
       localStorage.setItem('token', response.data.token);
       navigate('/dashboard');
     } catch (error) {
       console.error('Erro de login:', error);
-      alert(error.response?.data?.message || 'Erro ao realizar login. Verifique suas credenciais.');
+      alert(error.response?.data?.errors?.[0] || 'Erro ao realizar login. Verifique suas credenciais.');
     } finally {
       setLoading(false);
     }

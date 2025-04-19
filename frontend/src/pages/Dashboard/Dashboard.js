@@ -13,13 +13,15 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTotalExpenses = async () => {
       try {
-        const response = await api.get('/categories');
-        console.log(response)
-        setTotalExpenses(response.data.total);
+        const response = await api.get('/category/all');
+        console.log(response);
+
+        const total = response.data.categories.reduce((sum, category) => sum + Number(category.total_value || 0), 0);
+        setTotalExpenses(total);
         setLoading(false);
       } catch (err) {
         console.error(err);
-        setError('Não foi possível carregar os dados.');
+        setError('Falha ao carregar os dados');
         setLoading(false);
       }
     };
@@ -39,7 +41,7 @@ const Dashboard = () => {
           ) : (
             <div>
               <h2>Gastos Totais</h2>
-              <p className={styles.total}>{`R$ ${totalExpenses?.toFixed(2)}`}</p>
+              <p className={styles.total}>{`R$ ${totalExpenses.toFixed(2)}`}</p>
             </div>
           )}
         </Card>
