@@ -1,20 +1,117 @@
-import React from 'react';
-import LoginForm from '../../components/LoginForm';
-import styles from './Login.module.css';
 
-function Login() {
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaEnvelope, FaLock, FaUser, FaKey } from 'react-icons/fa';
+import CustomInput from '../../components/CustomInput';
+import Card from '../../components/Card';
+import api from '../../services/api'; // Importa o cliente Axios
+import styles from './Signup.module.css';
+
+function Signup() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [code, setCode] = useState('');
+  const navigate = useNavigate();
+
+  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
+  const isFormValid = () => username.trim() && isValidEmail(email) && password.trim() && code.length === 6;
+
+  const handleSendCode = async () => {
+    try {
+      const response = await api.post('/email', { email });
+      alert(response.data.message || 'Código enviado com sucesso!');
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao enviar o código.');
+    }
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.post('/signup', {
+        username,
+        email,
+        password,
+        code,
+      });
+      alert(response.data.message || `Bem-vindo, ${username}!`);
+      navigate('/login');
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao criar conta. Tente novamente.');
+    }
+  };
+
   return (
     <div className={styles.body}>
-      <div className={styles.card}>
+      <Card>
         <header className={styles.header}>
-          <h1 className={styles.title}>ContG</h1>
-          <h3 className={styles.subtitle}>Faça login para continuar</h3>
+          <h1 className={styles.title}>Criar Conta</h1>
+          <h3 className={styles.subtitle}>Preencha os campos abaixo</h3>
         </header>
-        <LoginForm />
-      </div>
+        <form className={styles.form} onSubmit={handleSignup}>
+          <CustomInput
+            type="text"
+            icon={<FaUser />}
+            placeholder="Nome de Usuário"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <CustomInput
+            type="email"
+            icon={<FaEnvelope />}
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <CustomInput
+            type="password"
+            icon={<FaLock />}
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <div className={styles.codeContainer}>
+            <CustomInput
+              type="text"
+              icon={<FaKey />}
+              placeholder="Código"
+              value={code}
+              onChange={(e) => {
+                const inputCode = e.target.value;
+                if (/^\d*$/.test(inputCode) && inputCode.length <= 6) {
+                  setCode(inputCode);
+                }
+              }}
+              required
+            />
+            <button
+              type="button"
+              className={styles.codeButton}
+              onClick={handleSendCode}
+              disabled={!isValidEmail(email)}
+            >
+              Enviar Código
+            </button>
+          </div>
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={!isFormValid()}
+          >
+            Cadastrar
+          </button>
+        </form>
+      </Card>
     </div>
   );
 }
 
-export default Login;
+export default Signup;
 

@@ -2,19 +2,9 @@
   display: flex;
   flex-direction: column;
   width: 300px;
-}
-
-.input {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.input:focus {
-  border-color: #007bff;
-  outline: none;
+  /* Controle do tamanho do formulário */
+  margin-top: 10px;
+  /* Espaçamento superior */
 }
 
 .button {
@@ -49,29 +39,4 @@
 
 .linkButton:hover {
   color: var(--secondary-color);
-}
-
-.inputGroup {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  overflow: hidden;
-  height: 20px;
-}
-
-.icon {
-  margin-right: 10px;
-  font-size: 1.2rem;
-  color: #aaa;
-}
-
-.input {
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  flex: 1;
-  margin: 0;
 }
