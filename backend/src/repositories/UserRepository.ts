@@ -9,7 +9,7 @@ export class UserRepository {
     try {
       await client.query(query, [name, email, hash]);
     } catch (error: any) {
-      throw { status: 409, message: "Email duplicado" };
+      throw { status: 409, message: "Já existe um usuario com este email" };
     }
   }
 
@@ -20,7 +20,7 @@ export class UserRepository {
 
     const result = await client.query(query, [email]);
     if (result.rowCount == 0) {
-      throw { status: 404, message: "Usuario não encontradoo" };
+      throw { status: 404, message: "Usuario não encontrado" };
     }
     return result.rows[0].user_id;
   }

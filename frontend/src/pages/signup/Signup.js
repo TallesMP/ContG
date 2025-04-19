@@ -10,13 +10,13 @@ import styles from './Signup.module.css';
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [name, setUsername] = useState('');
   const [code, setCode] = useState('');
   const navigate = useNavigate();
 
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
-  const isFormValid = () => username.trim() && isValidEmail(email) && password.trim() && code.length === 6;
+  const isFormValid = () => name.trim() && isValidEmail(email) && password.trim() && code.length === 6;
 
   const handleSendCode = async () => {
     try {
@@ -31,13 +31,13 @@ function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/signup', {
-        username,
+      const response = await api.post('/user', {
+        name,
         email,
         password,
         code,
       });
-      alert(response.data.message || `Bem-vindo, ${username}!`);
+      alert(response.data.message || `Bem-vindo, ${name}!`);
       navigate('/login');
     } catch (error) {
       console.error(error);
@@ -57,7 +57,7 @@ function Signup() {
             type="text"
             icon={<FaUser />}
             placeholder="Nome de Usuário"
-            value={username}
+            value={name}
             onChange={(e) => setUsername(e.target.value)}
             required
           />

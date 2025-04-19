@@ -4,14 +4,28 @@ import { useNavigate } from 'react-router-dom';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import styles from './LoginForm.module.css';
 import CustomInput from './CustomInput';
+import api from '../services/api';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+    try {
+      const response = await api.post('/login', { email, password });
+      localStorage.setItem('token', response.data.token);
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Erro de login:', error);
+      alert(error.response?.data?.message || 'Erro ao realizar login. Verifique suas credenciais.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleForgotPassword = () => {
@@ -41,8 +55,8 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" className={styles.button}>
-          Entrar
+        <button type="submit" className={styles.button} disabled={loading}>
+          {loading ? 'Entrando...' : 'Entrar'}
         </button>
       </form>
 
