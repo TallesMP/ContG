@@ -20,6 +20,15 @@
   padding: 20px;
 }
 
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  top: -40px;
+}
+
 .title {
   font-size: 3rem;
   color: var(--primary-color);
@@ -30,67 +39,4 @@
 .subtitle {
   color: rgba(0, 0, 0, 0.3);
   font-family: var(--font-family);
-}
-
-
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-  top: -60px;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-}
-
-.input {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-.button {
-  padding: 10px;
-  font-size: 1rem;
-  color: #fff;
-  background-color: var(--primary-color);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: var(--secondary-color);
-}
-
-.linkContainer {
-  display: flex;
-  justify-content: space-between;
-  width: 300px;
-  margin-top: 15px;
-}
-
-.linkButton {
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  font-size: 0.9rem;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.linkButton:hover {
-  color: var(--secondary-color);
 }

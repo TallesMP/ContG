@@ -1,0 +1,77 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--secondary-color);
+}
+
+.linkContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  margin-top: 15px;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.linkButton:hover {
+  color: var(--secondary-color);
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  overflow: hidden;
+  height: 20px;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+.input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  flex: 1;
+  margin: 0;
+}
