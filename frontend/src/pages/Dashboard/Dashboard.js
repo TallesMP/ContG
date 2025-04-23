@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
-import Card from '../../components/Card';
+import DataCard from '../../components/DataCard';
 import Sidebar from '../../components/Sidebar';
 import api from '../../services/api';
 import styles from './Dashboard.module.css';
@@ -33,7 +32,7 @@ const Dashboard = () => {
     <div className={styles.dashboard}>
       <Sidebar />
       <div className={styles.content}>
-        <Card>
+        <DataCard>
           {loading ? (
             <p>Carregando...</p>
           ) : error ? (
@@ -44,7 +43,7 @@ const Dashboard = () => {
               <p className={styles.total}>{`R$ ${totalExpenses.toFixed(2)}`}</p>
             </div>
           )}
-        </Card>
+        </DataCard>
       </div>
     </div>
   );

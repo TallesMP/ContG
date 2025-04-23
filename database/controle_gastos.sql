@@ -22,7 +22,7 @@ CREATE TABLE categories (
 CREATE TABLE expenses (
     expense_id SERIAL PRIMARY KEY,
     user_id INT,
-    category_id INT DEFAULT NULL,
+    category_id INT DEFAULT 0,
     name VARCHAR(100) NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
     date DATE DEFAULT CURRENT_DATE NOT NULL,
@@ -54,4 +54,21 @@ CREATE TRIGGER trigger_update_total_value
 AFTER INSERT ON expenses
 FOR EACH ROW
 EXECUTE FUNCTION update_total_value();
+
+
+CREATE OR REPLACE FUNCTION create_default_category()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO categories (user_id, name, total_value)
+    VALUES (NEW.user_id, 'Outros', 0);
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_create_default_category
+AFTER INSERT ON users
+FOR EACH ROW
+EXECUTE FUNCTION create_default_category();
+
 

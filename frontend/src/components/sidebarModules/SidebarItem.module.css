@@ -1,0 +1,18 @@
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.menuItem:hover {
+  background-color: #b0b0b0;
+}
+
+.menuItem span {
+  font-size: 1rem;
+}
